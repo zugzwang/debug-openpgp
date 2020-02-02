@@ -4,7 +4,7 @@ import (
 	"os"
 	"fmt"
 	"io/ioutil"
-	"github.com/zugzwang/parseopenpgp"
+	"github.com/zugzwang/debug-openpgp/parseopenpgp"
 )
 
 func main() {
@@ -15,6 +15,7 @@ func main() {
 	}
 	filename := os.Args[1]
 	fmt.Println("Filename: ", filename)
+	println()
 	file, err := os.Open(filename)
 	if err != nil {
 		panic(err)
@@ -25,7 +26,9 @@ func main() {
 	}
 
 	// Prompt user choice
-	PrintFile("msg/welcome.txt")
+	println("1. Parse armored string")
+
+	print("\nYour choice: ")
 	var choice int
 	for {
 		_, err := fmt.Scanf("%d", &choice)

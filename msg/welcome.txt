@@ -1,5 +1,0 @@
-Choose:
-
-1. Parse armored string
-
-Your choice:
