@@ -9,8 +9,13 @@ import (
 	"golang.org/x/crypto/openpgp/packet"
 )
 
+const maxDepth = 6
+
 // ParseArmored dumps the packets of the given armored string
 func ParseArmored(input string) {
+	spew.Config = spew.ConfigState{
+		Indent: "\t",
+	}
 	// Unarmor ciphertext
 	sr := strings.NewReader(input)
 	data, err := armor.Decode(sr)
@@ -42,9 +47,17 @@ func ParseArmored(input string) {
 		var choice int
 		fmt.Println("Choose packet to print info:")
 		_, err = fmt.Scanf("%d", &choice)
-		fmt.Println("----------------------------")
-		spew.Dump(parsedPackets[choice])
-		fmt.Println("----------------------------")
-		println()
+		for j := 1; j < maxDepth; j++ {
+			fmt.Println("----------- DEPTH ", j, "-----------------")
+			spew.Config = spew.ConfigState{
+				Indent: "\t",
+				MaxDepth: j,
+			}
+			spew.Dump(parsedPackets[choice])
+			fmt.Println("----------------------------")
+			println()
+			println("Press Enter to continue")
+			_, err = fmt.Scanf("Continue")
+		}
 	}
 }
