@@ -32,11 +32,11 @@ func ParseArmored(input string) {
 	for {
 		var p packet.Packet
 		p, err = packets.Next();
-		parsedPackets = append(parsedPackets, p)
-		errs = append(errs, err)
 		if err == io.EOF || err != nil {
 			break
 		}
+		parsedPackets = append(parsedPackets, p)
+		errs = append(errs, err)
 	}
 	// Print details of each packet
 	for {

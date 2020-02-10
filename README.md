@@ -1,6 +1,6 @@
 # Debug-openpgp
 
-Tool for analysing OpenPGP packets 
+Tool for analysing OpenPGP packets
 
 ## Usage
 
