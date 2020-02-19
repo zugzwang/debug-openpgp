@@ -1,21 +1,34 @@
-package parseopenpgp
+package commands
 
 import (
 	"io"
+	"os"
 	"fmt"
 	"strings"
-	"github.com/davecgh/go-spew/spew"
+	"io/ioutil"
 	"golang.org/x/crypto/openpgp/armor"
 	"golang.org/x/crypto/openpgp/packet"
 )
 
-const maxDepth = 6
-
 // ParseArmored dumps the packets of the given armored string
-func ParseArmored(input string) {
-	spew.Config = spew.ConfigState{
-		Indent: "\t",
+func ParseArmored() {
+	// Load input file
+	if len(os.Args) < 2 {
+		println("Must give a filename...")
+		os.Exit(1)
 	}
+	filename := os.Args[1]
+	fmt.Println("Filename: ", filename)
+	println()
+	file, err := os.Open(filename)
+	if err != nil {
+		panic(err)
+	}
+	contents, err := ioutil.ReadAll(file)
+	if err != nil {
+		panic(err)
+	}
+	input := string(contents)
 	// Unarmor ciphertext
 	sr := strings.NewReader(input)
 	data, err := armor.Decode(sr)
@@ -47,17 +60,6 @@ func ParseArmored(input string) {
 		var choice int
 		fmt.Println("Choose packet to print info:")
 		_, err = fmt.Scanf("%d", &choice)
-		for j := 1; j < maxDepth; j++ {
-			fmt.Println("----------- DEPTH ", j, "-----------------")
-			spew.Config = spew.ConfigState{
-				Indent: "\t",
-				MaxDepth: j,
-			}
-			spew.Dump(parsedPackets[choice])
-			fmt.Println("----------------------------")
-			println()
-			println("Press Enter to continue")
-			_, err = fmt.Scanf("Continue")
-		}
+		Dump(parsedPackets[choice])
 	}
 }
