@@ -19,35 +19,10 @@ func EncryptDecrypt() {
 		os.Exit(1)
 	}
 	// Import string public key
-	pkFilename := os.Args[1]
-	fmt.Println("Importing Public Key: ", pkFilename)
-	println()
-	pkFile, err := os.Open(pkFilename)
-	if err != nil {
-		panic(err)
-	}
-	pkEntities, err := openpgp.ReadArmoredKeyRing(pkFile)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("Imported entities:")
-	singleDump(pkEntities, 3)
-	enterToContinue()
+	pkEntities := importPublicKey(os.Args[1])
 
 	// Import string private key(s)
-	skFilename := os.Args[2]
-	fmt.Println("Importing Private Key: ", skFilename)
-	println()
-	skFile, err := os.Open(skFilename)
-	if err != nil {
-		panic(err)
-	}
-	skEntities, err := openpgp.ReadArmoredKeyRing(skFile)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("Imported entities:")
-	singleDump(skEntities, 3)
+	skEntities := importSecretKey(os.Args[2])
 
 	fmt.Println("Encryption follows")
 	enterToContinue()
