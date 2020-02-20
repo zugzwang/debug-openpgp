@@ -8,9 +8,12 @@ import (
 
 func main() {
 
-	// Prompt user choice
-	println("1. Parse packets of armored string")
-	println("2. Decrypt a private key from armored string")
+	options := `
+	1. Parse packets of armored string
+	2. Decrypt a private key from armored string
+	3. Decrypt ciphertext
+	`
+	println(options)
 
 	print("\nYour choice: ")
 	var choice int
@@ -22,7 +25,9 @@ func main() {
 		commands.ParseArmored()
 	case 2:
 		commands.DecryptPrivateKey()
+	case 3:
+		commands.DecryptCiphertext()
 	default:
-	println("Invalid choice...")
+		println("Invalid choice...")
 	}
 }
