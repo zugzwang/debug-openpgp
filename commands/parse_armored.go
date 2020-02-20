@@ -60,6 +60,6 @@ func ParseArmored() {
 		var choice int
 		fmt.Println("Choose packet to print info:")
 		_, err = fmt.Scanf("%d", &choice)
-		Dump(parsedPackets[choice])
+		progressiveDump(parsedPackets[choice])
 	}
 }
