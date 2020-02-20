@@ -27,6 +27,9 @@ func DecryptCiphertext() {
 	}
 	// Unarmor
 	entities, err := openpgp.ReadArmoredKeyRing(keyFile)
+	if err != nil {
+		panic(err)
+	}
 	fmt.Println("Imported entities:")
 	singleDump(entities, 3)
 

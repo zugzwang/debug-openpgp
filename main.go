@@ -12,6 +12,7 @@ func main() {
 	1. Parse packets of armored string
 	2. Decrypt a private key from armored string
 	3. Decrypt ciphertext
+	4. Encrypt and decrypt a message with a key pair
 	`
 	println(options)
 
@@ -27,6 +28,8 @@ func main() {
 		commands.DecryptPrivateKey()
 	case 3:
 		commands.DecryptCiphertext()
+	case 4:
+		commands.EncryptDecrypt()
 	default:
 		println("Invalid choice...")
 	}

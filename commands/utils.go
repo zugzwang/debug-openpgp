@@ -25,6 +25,16 @@ func PrintFile(filename string) {
 	print(string(contents))
 }
 
+func askForMessage() (passphrase string) {
+	fmt.Print("Enter message (one line):\n")
+	scanner := bufio.NewScanner(os.Stdin)
+	if scanner.Scan() {
+		passphrase = scanner.Text()
+		fmt.Printf("Input was: %q\n", passphrase)
+	}
+	return
+}
+
 func askForPassphrase() (passphrase string) {
 	fmt.Print("Private key is passphrase encrypted. Enter text:\n")
 	scanner := bufio.NewScanner(os.Stdin)
