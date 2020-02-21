@@ -12,7 +12,7 @@ func main() {
 	1. Parse packets of armored string
 	2. Decrypt a private key from armored string
 	3. Decrypt ciphertext
-	4. Encrypt and decrypt a message with a key pair
+	4. Encrypt + decrypt roundtrip
 	`
 	println(options)
 
