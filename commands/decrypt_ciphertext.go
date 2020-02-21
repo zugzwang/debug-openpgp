@@ -18,19 +18,8 @@ func DecryptCiphertext() {
 	}
 
 	// Import string key(s)
-	keyFilename := os.Args[1]
-	fmt.Println("Importing Key: ", keyFilename)
-	println()
-	keyFile, err := os.Open(keyFilename)
-	if err != nil {
-		panic(err)
-	}
-	// Unarmor
-	entities, err := openpgp.ReadArmoredKeyRing(keyFile)
-	fmt.Println("Imported entities:")
-	singleDump(entities, 3)
-
-	fmt.Print("Proceeding with first key\n\n")
+	entities := importSecretKey(os.Args[1])
+	fmt.Print("Analysing first key\n\n")
 	key := entities[0].PrivateKey
 
 	// Decrypt key if necessary

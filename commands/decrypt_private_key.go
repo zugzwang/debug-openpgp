@@ -3,8 +3,6 @@ package commands
 import (
 	"fmt"
 	"os"
-
-	"golang.org/x/crypto/openpgp"
 )
 
 // DecryptPrivateKey takes a ciphertext and a private key and decrypts.
@@ -16,19 +14,14 @@ func DecryptPrivateKey() {
 	}
 
 	// Import string key(s)
-	keyFilename := os.Args[1]
-	fmt.Println("Importing Key: ", keyFilename)
-	println()
-	keyFile, err := os.Open(keyFilename)
-	if err != nil {
-		panic(err)
-	}
-	// Unarmor
-	entities, err := openpgp.ReadArmoredKeyRing(keyFile)
-	fmt.Println("Imported entities:")
-	singleDump(entities, 3)
+	entities := importSecretKey(os.Args[1])
+
 	fmt.Println("Proceeding with first key")
 	key := entities[0].PrivateKey
+	if key == nil {
+		fmt.Println("No private key found in first key of entities")
+		os.Exit(1)
+	}
 
 	if !key.Encrypted {
 		fmt.Println("Key is NOT encrypted.")
